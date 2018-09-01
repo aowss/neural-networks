@@ -14,13 +14,11 @@ public class TrainingSet {
     public class TrainingSample {
 
         private double[] input;
-        private double output;
+        private double[] output;
 
-        private TrainingSample(double[] input, double output) {
-            //  Adding the bias, a.k.a offset
-            this.input = new double[input.length + 1];
-            this.input[0] = 1.0;
-            System.arraycopy(input, 0, this.input, 1, input.length);
+        private TrainingSample(double[] input, double[] output) {
+            //  The bias is added by the neuron
+            this.input = input;
             this.output = output;
         }
 
@@ -32,20 +30,23 @@ public class TrainingSet {
             return input;
         }
 
-        public double getOutput() {
+        public double[] getOutput() {
             return output;
         }
 
         @Override
         public String toString() {
-            return  "{ \"input\" : \""
-                    + DoubleStream.of(input).mapToObj(Double::toString).collect(Collectors.joining(", ", "[", "]"))
-                    + "\", \"output\" : \"" + output + "\" }";
+            String inputRepresentation = DoubleStream.of(input).mapToObj(Double::toString).collect(Collectors.joining(", ", "[", "]"));
+            String outputRepresentation = DoubleStream.of(output).mapToObj(Double::toString).collect(Collectors.joining(", ", "[", "]"));
+            return  "{ " +
+                        "\"input\" : \"" + inputRepresentation + "\", " +
+                        "\"output\" : \"" + outputRepresentation +
+                    "\" }";
         }
 
     }
 
-    public TrainingSet(double[][] input, double[] output) {
+    public TrainingSet(double[][] input, double[][] output) {
 
         if (input == null || input.length == 0) throw new RuntimeException("The training set's input data can't be null or empty");
         if (output == null || output.length == 0) throw new RuntimeException("The training set's output data can't be null or empty");

@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public class NetworkConfiguration {
 
     private Supplier<ActivationFunction> activationFunctionSupplier;
-    private Supplier<PropagationFunction> propagationFunctionSupplier;
+    private Supplier<IntegrationFunction> integrationFunctionSupplier;
     private Supplier<LearningFunction> learningFunctionSupplier;
     private Supplier<WeightInitializationFunction> weightInitializationFunctionSupplier;
     private DoubleSupplier tresholdSupplier;
